@@ -1,0 +1,95 @@
+		KCopy/2 v0.3.0 for OS/2
+               -------------------------
+
+                        Made by KO Myung-Hun( komh@chollian.net )
+                                                   
+KCopy/2 supports file copying between VFAT and other partition,
+conserving long filename.
+
+Features :
+    - Conserving long file name of VFAT partitionö
+    - Copying sub directory
+    - Supporting global name
+    - Supporting Korean file name
+    	               		
+Limitations :
+    - Being able to copy maximum 25 level of sub directory
+    - Ignoring exception( i.e. Ctrl-Break )
+    - Copying empty directory when copying directory
+    - NLS is lack.
+
+      
+History :
+    - v0.3.0 : 1999.11.26
+               Supporting to copy between the same partitions
+               
+               fixed :
+                   - Recognized continuous space chars of long file name
+                     as one space char
+               
+    - v0.2.0 : 1999.07.14
+               Supporting to write to VFAT
+               Supporting Korean file name
+               
+               fixed :
+                   - Do not copy if source file name is 'x:' form.
+               
+    - v0.1.0 : 1999.05.28
+               Supporting to copy sub directory
+               
+               fixed :
+                   - Do not work correctly if there are no global names in
+                     file name
+                     
+    - v0.0.0 : 1999.05.23                   
+               Initial release.
+               
+Compiling sources :
+
+This program is programmed originally for Free Pascal v0.99.10 for OS/2 and
+Virtual Pascal/2 v1.10 demo version.
+
+- In case of VP/2(1.10 or later)
+Sources should be compiled without any problems.
+
+- In case of Free Pascal for OS/2
+.Compile with v0.99.10
+You should copy dos.pas and doscalls.pas to rtl\os2 directory, and modify your
+ppc386.cfg correctly. If any error occur, refer to the ppc386.cfg included in
+this package.
+
+.Compile with latest version( current v1.0.6 )
+You should modify source files. Free Pascal recognize 'string' as 'ansistring'
+in default. So, you should {$H-} switch. You can see the following at top of
+sources.
+
+        {$IFDEF FPC}
+        {$MODE DELPHI}
+        {$ELSE}
+        {$DELPHI+}
+        {$ENDIF}
+
+All you have to do are to insert {$H-} before {$ELSE} as the following.
+
+        {$IFDEF FPC}
+        {$MODE DELPHI}
+        {$H-}
+        {$ELSE}
+        {$DELPHI+}
+        {$ENDIF}
+
+And, you should add '@' to parameter of DosGetInfoBlocks in 'kc.pas'.
+
+    DosGetInfoBlocks( @PTIB, @PPIB );
+
+This is because of declaration change of DosGetInfoBlocks.
+
+Now, you can compile the sources successfully.
+
+Epilogue :
+
+This program is distributed under GNU Public License.
+
+Writing to VFAT partitions is refered to vfat-os2 v0.04 sources of D. Steiner,
+and patches for Korean is refered to Lee Kyung-Nam( sam@noah.kaist.ac.kr ).
+
